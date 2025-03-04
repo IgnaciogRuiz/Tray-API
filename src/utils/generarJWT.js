@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 //funcion para generar el json web token
-const generarJWT = (DNI, tokenRestaurante) => {
+const generarJWT = (DNI, ID_Restaurante) => {
     return new Promise((resolve, reject) => {
-        const payload = { DNI, tokenRestaurante };
+        const payload = { DNI, ID_Restaurante };
         const options = { expiresIn: '7d' };
 
         jwt.sign(payload, jwtSecretKey, options, (err, token) => {

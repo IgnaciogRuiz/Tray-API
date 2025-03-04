@@ -2,7 +2,8 @@
 var express = require('express');
 var UsuarioController = require('../controllers/UsuarioController');
 var router = express.Router();
-var AuthMiddleware = require('../middlewares/auth');
+var AuthMiddleware = require('../middlewares/authMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 
 
@@ -10,18 +11,13 @@ var AuthMiddleware = require('../middlewares/auth');
 router.get('/test', AuthMiddleware, UsuarioController.test);
 router.get('/', AuthMiddleware, UsuarioController.obtenerUsuario);
 router.get('/all', AuthMiddleware, UsuarioController.obtenerEmpleados);
-//router.get('/ver-token', authMiddleware, UsuarioController);
-//POST
-router.post('/register/admin', UsuarioController.CreateAdmin);
-router.post('/register/empleado', UsuarioController.CreateEmpleado);
-router.post('/login', UsuarioController.login);
-router.post('/solicitar-recuperacion', UsuarioController.solicitarRecuperacion);
-router.post('/verificar-token', UsuarioController.verificarTokenRecuperacion);
-router.post('/actualizar-password', UsuarioController.actualizarContrasena);
-//PUT
- router.put('/actualizar-usuario', AuthMiddleware, UsuarioController.actualizarUsuario)
-//DELETE
 
+//PATCH
+router.patch('/cambiar-password', AuthMiddleware, UsuarioController.actualizarPassword);
+router.patch('/actualizar', AuthMiddleware, UsuarioController.actualizarUsuario);
+
+//DELETE
+router.delete('/eliminar', authMiddleware, UsuarioController.eliminarUsuariodeRestaurante);
 
 
 

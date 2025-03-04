@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 
 // cargar archivos rutas
+const authRoutes = require('../routes/auth');
 const usuarioRoutes = require('../routes/usuarios');
 const mesaRoutes = require('../routes/mesas');
 const categoriaRoutes = require('../routes/categorias');
@@ -14,7 +15,7 @@ const detallePedidoRoutes = require('../routes/detallepedidos');
 
 
 // middlewares
-var AuthMiddleware = require('../middlewares/auth')
+//var AuthMiddleware = require('../middlewares/authMiddleware')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 
 
 // rutas
+app.use('/api/auth', authRoutes);
 app.use('/api/usuario',  usuarioRoutes);
 // app.use('/api/mesas', mesaRoutes);
 // app.use('/api/categorias', categoriaRoutes);

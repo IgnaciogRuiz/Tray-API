@@ -2,7 +2,7 @@
 
 var app = require('./app/app');
 var port = process.env.PORT || 3700;
-var conexion = require('./config/database')
+var conexion = require('./database/database');
 
 if (conexion) {
     // Creacion del servidor

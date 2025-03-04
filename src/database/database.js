@@ -1,4 +1,4 @@
-// config/database.js
+
 const { Sequelize } = require('sequelize');
 
 // Configuración de conexión
@@ -12,7 +12,7 @@ const sequelize = new Sequelize('tray', 'root', '', {
   }
 });
 
-// Verificar la conexión
+//Verificar la conexión
 (async () => {
   try {
     await sequelize.authenticate();

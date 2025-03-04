@@ -1,0 +1,40 @@
+http://localhost:3700/api/auth/register/admin
+{
+  "DNI": 46767790,
+  "nombre": "Ignacio",
+  "apellido": "Ruiz",
+  "password": "nacho123",
+  "repPassword": "nacho123",
+  "email": "juan.perez@email.com",
+  "nombreRestaurante": "Kafta",
+  "telefono": "35132312",
+  "idPlan": 1,
+  "calleDomicilio": "Juarez Celman",
+  "numeroDomicilio": 50,
+  "cp": 5178,
+  "localidad": "La Cumbre"
+}
+
+http://localhost:3700/api/auth/register/empleado
+{
+  "DNI": 47767790,
+  "nombre": "Cachenche",
+  "apellido": "Jansen",
+  "password": "1234",
+  "repPassword": "1234",
+  "tokenRestaurante": "XC0K38",
+  "email": "ignacioguillermoruiz@gmail.com"
+}
+
+http://localhost:3700/api/auth/login
+{
+  "DNI": 47767790,
+  "password": "1234"
+}
+
+http://localhost:3700/api/usuario/cambiar-password
+{
+  "password": "123",
+  "nuevaPassword": "1234",
+  "repPassword": "1234"
+}
