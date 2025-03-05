@@ -10,12 +10,12 @@ const { where } = require('sequelize');
 
 
 
-const crearAdmin = async ({ DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, idPlan, calleDomicilio, numeroDomicilio, cp, localidad }) => {
+const crearAdmin = async ({ DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, cobra_cubiertos, precio_cubiertos, idPlan, calleDomicilio, numeroDomicilio, cp, localidad }) => {
     const transaction = await sequelize.transaction(); // ✅ Iniciar transacción
 
     try {
         // Validar que no falten campos
-        const camposRequeridos = { DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, idPlan, calleDomicilio, numeroDomicilio, cp, localidad };
+        const camposRequeridos = { DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, cobra_cubiertos, precio_cubiertos, idPlan, calleDomicilio, numeroDomicilio, cp, localidad };
         for (let [campo, valor] of Object.entries(camposRequeridos)) {
             if (!valor) {
                 throw new Error(`${campo} no proporcionado`);
@@ -88,6 +88,8 @@ const crearAdmin = async ({ DNI, nombre, apellido, password, repPassword, email,
             fecha_fin_plan: fechaFin,
             estado_plan: 'activo',
             tokenRestaurante,
+            cobra_cubiertos, 
+            precio_cubiertos,
             plan_id: idPlan,
             direccion_id: id_domicilio,
         }, { transaction });
@@ -97,6 +99,7 @@ const crearAdmin = async ({ DNI, nombre, apellido, password, repPassword, email,
             usuario_DNI: nuevoUsuario.DNI,
             restaurante_id: nuevoRestaurante.ID,
             rol: 'admin',
+            activo: true
         }, { transaction });
 
         // ✅ Confirmar la transacción si todo sale bien
@@ -188,6 +191,7 @@ const crearEmpleado = async ({ DNI, nombre, apellido, password, repPassword, tok
             usuario_DNI: DNI,
             restaurante_id: restaurante.ID,
             rol: 'empleado',
+            activo: true
         }, { transaction });    
         
         //Confirmar la transacción si todo sale bien
@@ -324,7 +328,8 @@ const vincular = async ({ tokenRestaurante}) => {
         const NuevoVinculo = await UsuarioRestaurante.create({
             usuario_DNI: DNI,
             restaurante_id: restaurante.ID,
-            rol: 'empleado'
+            rol: 'empleado',
+            activo: true
         })
         if(!NuevoVinculo) throw new Error ('error al crear el vinculo');
         const token = await generarJWT(user.DNI, restaurante.ID);
