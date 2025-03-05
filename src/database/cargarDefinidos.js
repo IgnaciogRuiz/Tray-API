@@ -1,4 +1,4 @@
-import { Plan } from './schema.js';
+import  { Plan } from './schema.js';
 
 const FreePlan = await Plan.create({
     ID: null,

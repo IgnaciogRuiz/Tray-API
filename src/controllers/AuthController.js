@@ -16,10 +16,10 @@ var AuthController = {
         });
       },
     CreateAdmin: async function(req, res) {
-        const { DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, idPlan, calleDomicilio, numeroDomicilio, cp, localidad } = req.body || {};
+        const { DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, cobra_cubiertos, precio_cubiertos, idPlan, calleDomicilio, numeroDomicilio, cp, localidad } = req.body || {};
         try {
             //llamar al servicio crearAdmin
-            const response = await AuthService.crearAdmin({ DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, idPlan, calleDomicilio, numeroDomicilio, cp, localidad });
+            const response = await AuthService.crearAdmin({ DNI, nombre, apellido, password, repPassword, email, nombreRestaurante, telefono, cobra_cubiertos, precio_cubiertos, idPlan, calleDomicilio, numeroDomicilio, cp, localidad });
     
             //respuesta
             res.status(201).json({response});

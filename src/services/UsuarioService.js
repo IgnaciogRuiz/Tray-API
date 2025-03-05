@@ -136,6 +136,7 @@ const actualizarUsuario = async function ({DNI, nombre, apellido, email}) {
 
 }
 
+//cambiar destroy a update activo: false
 const eliminarUsuario = async function ({DNI}) {
   try {
     const relacionUsuario = await UsuarioRestaurante.destroy({
