@@ -12,7 +12,7 @@ var RolController = {
     mostrarRols: async function (req, res) {
         const { ID_Restaurante } = req.user || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante});
+            const response = await RolService.obtenerRoles({ID_Restaurante});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
@@ -23,7 +23,7 @@ var RolController = {
         const { ID_Restaurante } = req.user || {};
         const { nombre, descripcion } = req.body || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante, nombre, descripcion});
+            const response = await RolService.CrearRol({ID_Restaurante, nombre, descripcion});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
@@ -34,7 +34,7 @@ var RolController = {
         const { ID_Restaurante } = req.user || {};
         const { ID, nombre, descripcion } = req.body || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante, ID, nombre, descripcion});
+            const response = await RolService.actualizarRol({ID_Restaurante, ID, nombre, descripcion});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
@@ -42,10 +42,9 @@ var RolController = {
         }
     },
     eliminarRol: async function (req, res) {
-        const { ID_Restaurante } = req.user || {};
-        const { ID, nombre, descripcion } = req.body || {};
+        const { ID } = req.body || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante, ID, nombre, descripcion});
+            const response = await RolService.eliminarRol({ID});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
@@ -53,3 +52,5 @@ var RolController = {
         }
     },
 }
+
+module.exports =  RolController 

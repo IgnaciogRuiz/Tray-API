@@ -33,7 +33,7 @@ const obtenerRoles = async ({ID_Restaurante}) => {
 
 const CrearRol = async ({ID_Restaurante, nombre, descripcion}) => {
     try {
-        if (!ID_Restaurante) throw new Error('no existe ID_restaurante en el token');
+         if (!ID_Restaurante) throw new Error('no existe ID_restaurante en el token');
         if (!nombre) throw new Error('nombre no proporcionado');
         if (!descripcion) throw new Error('descripcion no proporcionado');
 
@@ -42,7 +42,7 @@ const CrearRol = async ({ID_Restaurante, nombre, descripcion}) => {
             nombre,
             descripcion,
             restaurante_id: ID_Restaurante
-        })
+        })      
         if (nuevoRol) {
             const mensaje = "Rol " + nombre + " creado con exito"
             return {message: mensaje}
@@ -54,15 +54,48 @@ const CrearRol = async ({ID_Restaurante, nombre, descripcion}) => {
 
 const actualizarRol = async ({ID_Restaurante, ID, nombre, descripcion}) => {
     try {
+        if (!ID_Restaurante) throw new Error('no existe ID_restaurante en el token');
+        if (!ID) throw new Error('ID no proporcionado');
+        if (!nombre) throw new Error('nombre no proporcionado');
+        if (!descripcion) throw new Error('descripcion no proporcionado');
+
+        const ModificarRol = await Rol.findOne({
+            where: {ID: ID}
+        })
+        if (!ModificarRol) {
+            throw new Error('no existe un rol con esa ID');
+        }
         
+        ModificarRol.nombre = nombre
+        ModificarRol.descripcion = descripcion
+         // Guardar los cambios
+        await ModificarRol.save();
+        return {
+            message: 'Datos de rol modificados con exito',
+            nombre: nombre,
+            descripcion: descripcion
+        }
+
     } catch (error) {
         throw error; 
     }
 }
 
-const eliminarRol = async ({ID_Restaurante, ID, nombre, descripcion}) => {
+const eliminarRol = async ({ID_Restaurante, ID}) => {
     try {
-        
+        if (!ID) throw new Error('ID no proporcionado');
+
+        const EliminarRol = await Rol.destroy({
+            where: {ID: ID}
+        })
+        if (!EliminarRol ) {
+            throw new Error('no existe un rol con esa ID');
+        }
+        var mensaje = "Rol " + nombre + " eliminado con exito"
+        return { 
+            message: mensaje
+        }
+
     } catch (error) {
         throw error; 
     }
