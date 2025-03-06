@@ -136,6 +136,9 @@ Mesa.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
 Restaurante.hasMany(Factura, { foreignKey: 'restaurante_id' });
 Factura.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
 
+Restaurante.hasMany(Rol, { foreignKey: 'restaurante_id', allowNull: true });
+Rol.belongsTo(Restaurante, { foreignKey: 'restaurante_id', allowNull: true });
+
 Usuario.hasMany(UsuarioRestaurante, { foreignKey: 'usuario_DNI' });
 UsuarioRestaurante.belongsTo(Usuario, { foreignKey: 'usuario_DNI' });
 

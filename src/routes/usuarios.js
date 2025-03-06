@@ -3,7 +3,6 @@ var express = require('express');
 var UsuarioController = require('../controllers/UsuarioController');
 var router = express.Router();
 var AuthMiddleware = require('../middlewares/authMiddleware');
-const authMiddleware = require('../middlewares/authMiddleware');
 
 
 
@@ -17,7 +16,7 @@ router.patch('/cambiar-password', AuthMiddleware, UsuarioController.actualizarPa
 router.patch('/actualizar', AuthMiddleware, UsuarioController.actualizarUsuario);
 
 //DELETE
-router.delete('/eliminar', authMiddleware, UsuarioController.eliminarUsuariodeRestaurante);
+router.delete('/eliminar', AuthMiddleware, UsuarioController.eliminarUsuariodeRestaurante);
 
 
 

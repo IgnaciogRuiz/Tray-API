@@ -2,7 +2,6 @@
 const UsuarioService = require('../services/UsuarioService');
 
 //importar archivos
-const { Usuario } = require('../database/schema');
 const { response } = require('express');
 
 
