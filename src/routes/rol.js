@@ -8,6 +8,7 @@ var AuthMiddleware = require('../middlewares/authMiddleware');
 //GET
 router.get('/test', AuthMiddleware, RolController.test)
 router.get('/all', AuthMiddleware, RolController.mostrarRols)
+router.get('/:id', AuthMiddleware, RolController.mostrarRol)
 
 //POST
 router.post('/create', AuthMiddleware, RolController.crearRol)
@@ -16,7 +17,7 @@ router.post('/create', AuthMiddleware, RolController.crearRol)
 router.patch('/update', AuthMiddleware, RolController.actualizarRol)
 
 //DELETE
-router.delete('/delete', AuthMiddleware, RolController.eliminarRol)
+router.delete('/delete/:id', AuthMiddleware, RolController.eliminarRol)
 
 
 module.exports = router;    

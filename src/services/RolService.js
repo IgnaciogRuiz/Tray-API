@@ -31,6 +31,33 @@ const obtenerRoles = async ({ID_Restaurante}) => {
     }
 }
 
+const obtenerRol = async ({id}) => {
+    try {
+        const rol = await Rol.findOne({
+            where: {
+                ID: id
+            }
+        });
+        
+        // Si no hay roles, lanzar un error
+        if (!rol) {
+            throw new Error('No existe un rol con esa ID');
+        }
+        
+        // Retornar los roles formateados
+        return {
+            rol: {
+                id: rol.id,
+                nombre: rol.nombre,
+                descripcion: rol.descripcion
+            }
+        };
+
+    } catch (error) {
+        throw error; 
+    }
+}
+
 const CrearRol = async ({ID_Restaurante, nombre, descripcion}) => {
     try {
          if (!ID_Restaurante) throw new Error('no existe ID_restaurante en el token');
@@ -81,12 +108,12 @@ const actualizarRol = async ({ID_Restaurante, ID, nombre, descripcion}) => {
     }
 }
 
-const eliminarRol = async ({ID_Restaurante, ID}) => {
+const eliminarRol = async ({id}) => {
     try {
-        if (!ID) throw new Error('ID no proporcionado');
+        if (!id) throw new Error('ID no proporcionado');
 
         const EliminarRol = await Rol.destroy({
-            where: {ID: ID}
+            where: {ID: id}
         })
         if (!EliminarRol ) {
             throw new Error('no existe un rol con esa ID');
@@ -109,4 +136,4 @@ const eliminarRol = async ({ID_Restaurante, ID}) => {
 //     }
 // }
 
-module.exports = {obtenerRoles, CrearRol, actualizarRol, eliminarRol}
+module.exports = {obtenerRoles, obtenerRol, CrearRol, actualizarRol, eliminarRol}

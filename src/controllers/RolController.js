@@ -16,7 +16,18 @@ var RolController = {
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
-            res.status(400).json({ error: 'Error al crearRol', message: error.message });
+            res.status(400).json({ error: 'Error al mostrar todos los Roles', message: error.message });
+        }  
+    },
+    mostrarRol: async function (req, res) {
+        const { id } = req.params || {};
+
+        try {
+            const response = await RolService.obtenerRol({id});
+            res.status(200).json({ response }); 
+        } catch (error) {
+            //console.error('Error en crearRol', error);
+            res.status(400).json({ error: 'Error al mostrarRol', message: error.message });
         }  
     },
     crearRol: async function (req, res) {
@@ -38,17 +49,17 @@ var RolController = {
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
-            res.status(400).json({ error: 'Error al crearRol', message: error.message });
+            res.status(400).json({ error: 'Error al actualizarRol', message: error.message });
         }
     },
     eliminarRol: async function (req, res) {
-        const { ID } = req.body || {};
+        const { id } = req.params || {};
         try {
-            const response = await RolService.eliminarRol({ID});
+            const response = await RolService.eliminarRol({id});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
-            res.status(400).json({ error: 'Error al crearRol', message: error.message });
+            res.status(400).json({ error: 'Error al eliminarRol', message: error.message });
         }
     },
 }

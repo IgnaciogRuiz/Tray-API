@@ -37,7 +37,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/usuario',  usuarioRoutes);
 app.use('/api/rol',  rolRoutes);
 // app.use('/api/mesas', mesaRoutes);
-// app.use('/api/categorias', categoriaRoutes);
+app.use('/api/categoria', categoriaRoutes);
 // app.use('/api/productos', productoRoutes);
 // app.use('/api/menus', menuRoutes);
 // app.use('/api/pedidos', pedidoRoutes);

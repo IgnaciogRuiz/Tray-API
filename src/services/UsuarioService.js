@@ -150,6 +150,6 @@ const eliminarUsuario = async function ({DNI}) {
     throw error
   }
 }
-
+                                                                                                                    
 
 module.exports = { obtenerEmpleados, obtenerUsuario, cambiarPassword, actualizarUsuario, eliminarUsuario }
