@@ -1,9 +1,9 @@
-//Rutas de Rol
-var express = require('express');
-var CategoriaController = require('../controllers/CategoriaController');
-var router = express.Router();
-var AuthMiddleware = require('../middlewares/authMiddleware');
+// /routes/categorias
+import express from 'express';
+import CategoriaController from '../controllers/CategoriaController.js';
+import AuthMiddleware from '../middlewares/authMiddleware.js';
 
+var router = express.Router();
 
 //GET
 router.get('/test', AuthMiddleware, CategoriaController.test)
@@ -20,4 +20,4 @@ router.patch('/update', AuthMiddleware, CategoriaController.actualizarCategoria)
 router.delete('/delete/:id', AuthMiddleware, CategoriaController.eliminarCategoria)
 
 
-module.exports = router;    
+export default router;    

@@ -1,5 +1,8 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
+
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 //middleware que solicita el token jwt generado al iniciar sesion
@@ -22,4 +25,4 @@ const authMiddleware = (req, res, next) => {
     });
 };
 
-module.exports = authMiddleware;
+export default authMiddleware;

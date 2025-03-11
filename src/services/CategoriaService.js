@@ -1,4 +1,4 @@
-const { Categoria } = require('../database/schema');
+import { Categoria } from '../database/models.js';
 
 
 const crearCategoria = async ({nombre}) => {
@@ -79,4 +79,4 @@ const eliminarCategoria = async ({params}) => {
 //     }
 // }
 
-module.exports = { crearCategoria, obtenerCategoria, obtenerCategorias, actualizarCategoria, eliminarCategoria }
+export default { crearCategoria, obtenerCategoria, obtenerCategorias, actualizarCategoria, eliminarCategoria }

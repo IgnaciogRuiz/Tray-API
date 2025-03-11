@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var AuthController = require('../controllers/AuthController');
-var AuthMiddleware = require('../middlewares/authMiddleware');
+import express from 'express';
+import AuthController from '../controllers/AuthController.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
+const router = express.Router();
 
 //GET
 router.get('/test', AuthController.test);
@@ -10,12 +10,12 @@ router.get('/test', AuthController.test);
 router.post('/register/admin', AuthController.CreateAdmin);
 router.post('/register/empleado', AuthController.CreateEmpleado);
 router.post('/login', AuthController.Login);
-router.post('/login/select', AuthMiddleware, AuthController.Select);
+router.post('/login/select', authMiddleware, AuthController.Select);
 router.post('/solicitar-recuperacion', AuthController.solicitarRecuperacion);
 router.post('/verificar-token', AuthController.verificarTokenRecuperacion);
-router.post('/vincular', AuthMiddleware, AuthController.verificarTokenRecuperacion);
+router.post('/vincular', authMiddleware, AuthController.verificarTokenRecuperacion);
 
 //PATCH
 router.patch('/actualizar-password', AuthController.actualizarContrasena);
 
-module.exports = router;   
+export default router;   

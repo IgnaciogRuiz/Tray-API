@@ -8,10 +8,8 @@ Funciones:
     eliminarCategoria: Eliminar una categoría (si no tiene productos asignados).
 */
 
-//importar services
-const CategoriaService = require('../services/CategoriaService');
-//importar archivos
-const { response } = require('express');
+import { response } from 'express';
+import CategoriaService from '../services/CategoriaService.js';
 
 var CategoriaController = {
     test: async function(req,res) {
@@ -70,4 +68,4 @@ var CategoriaController = {
     }
 }
 
-module.exports = CategoriaController
+export default CategoriaController;

@@ -1,5 +1,5 @@
+import { Sequelize } from 'sequelize';
 
-const { Sequelize } = require('sequelize');
 
 // Configuración de conexión
 const sequelize = new Sequelize('tray', 'root', '', {
@@ -22,4 +22,5 @@ const sequelize = new Sequelize('tray', 'root', '', {
   }
 })();
 
-module.exports = sequelize;
+// Exportar la conexión
+export default sequelize;

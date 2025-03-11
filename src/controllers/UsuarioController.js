@@ -1,8 +1,5 @@
-//importar services
-const UsuarioService = require('../services/UsuarioService');
-
-//importar archivos
-const { response } = require('express');
+import UsuarioService from '../services/UsuarioService.js';
+import { response } from 'express';
 
 
 
@@ -71,4 +68,4 @@ var UsuarioController = {
 
 
  
-module.exports = UsuarioController;
+export default UsuarioController;

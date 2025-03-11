@@ -1,4 +1,4 @@
-const { sequelize, Usuario, Mesa, Pedido, Categoria, Producto, Menu, MenuProducto, DetallePedido, Turno, Rol, Restaurante, Plan, Direccion, UsuarioRestaurante } = require('./schema');
+import { sequelize, Usuario, Mesa, Pedido, Categoria, Producto, DetallePedido, Restaurante, Plan, Direccion, UsuarioRestaurante } from './models.js'
 
 async function syncDatabase() {
   try {

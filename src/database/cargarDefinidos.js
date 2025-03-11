@@ -1,4 +1,4 @@
-import  Plan  from '/schema.js';
+import  { Plan }  from './models.js';
 
 //PLANES
 const FreePlan = await Plan.create({

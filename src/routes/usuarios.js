@@ -1,9 +1,8 @@
-//Rutas de Usuario
-var express = require('express');
-var UsuarioController = require('../controllers/UsuarioController');
-var router = express.Router();
-var AuthMiddleware = require('../middlewares/authMiddleware');
+import express from 'express';
+import UsuarioController from '../controllers/UsuarioController.js';
+import AuthMiddleware from '../middlewares/authMiddleware.js';
 
+var router = express.Router();
 
 
 //GET
@@ -20,4 +19,4 @@ router.delete('/eliminar', AuthMiddleware, UsuarioController.eliminarUsuariodeRe
 
 
 
-module.exports = router;    
+export default  router;    
