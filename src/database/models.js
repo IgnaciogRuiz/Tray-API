@@ -26,7 +26,12 @@ const Pedido = sequelize.define('Pedido', {
 });
 
 const CategoriaProducto = sequelize.define('CategoriaProducto', {
-  //clave primaria compuesta
+  producto_id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true},
+  categoria_id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true}
+}, {
+  tableName: 'categoria_producto',
+  timestamps: false,  // Evita las columnas createdAt y updatedAt
+  freezeTableName: true // Evita que Sequelize pluralice el nombre de la tabla
 });
 
 const Categoria = sequelize.define('Categoria', {
@@ -121,8 +126,11 @@ Factura.belongsTo(Pedido, { foreignKey: 'pedido_id' });
 Producto.hasMany(DetallePedido, { foreignKey: 'producto_id' });
 DetallePedido.belongsTo(Producto, { foreignKey: 'producto_id' });
 
-Categoria.hasMany(Producto, { foreignKey: 'categoria_id' });
-Producto.belongsTo(Categoria, { foreignKey: 'categoria_id' });
+Producto.hasMany(CategoriaProducto, { primaryKey: true, foreignKey: 'producto_id' });
+CategoriaProducto.belongsTo(Producto, { primaryKey: true, foreignKey: 'producto_id' });
+
+Categoria.hasMany(CategoriaProducto, { primaryKey: true, foreignKey: 'categoria_id' });
+CategoriaProducto.belongsTo(Categoria, { primaryKey: true, foreignKey: 'categoria_id' });
 
 Restaurante.belongsTo(Plan, { foreignKey: 'plan_id' });
 Plan.hasMany(Restaurante, { foreignKey: 'plan_id' });
