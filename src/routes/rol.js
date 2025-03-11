@@ -6,7 +6,7 @@ var AuthMiddleware = require('../middlewares/authMiddleware');
 
 
 //GET
-
+router.get('/all')
 //POST
 
 //PUT
