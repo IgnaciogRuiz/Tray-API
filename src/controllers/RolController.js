@@ -12,18 +12,29 @@ var RolController = {
     mostrarRols: async function (req, res) {
         const { ID_Restaurante } = req.user || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante});
+            const response = await RolService.obtenerRoles({ID_Restaurante});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
-            res.status(400).json({ error: 'Error al crearRol', message: error.message });
+            res.status(400).json({ error: 'Error al mostrar todos los Roles', message: error.message });
+        }  
+    },
+    mostrarRol: async function (req, res) {
+        const { id } = req.params || {};
+
+        try {
+            const response = await RolService.obtenerRol({id});
+            res.status(200).json({ response }); 
+        } catch (error) {
+            //console.error('Error en crearRol', error);
+            res.status(400).json({ error: 'Error al mostrarRol', message: error.message });
         }  
     },
     crearRol: async function (req, res) {
         const { ID_Restaurante } = req.user || {};
         const { nombre, descripcion } = req.body || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante, nombre, descripcion});
+            const response = await RolService.CrearRol({ID_Restaurante, nombre, descripcion});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
@@ -34,22 +45,23 @@ var RolController = {
         const { ID_Restaurante } = req.user || {};
         const { ID, nombre, descripcion } = req.body || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante, ID, nombre, descripcion});
+            const response = await RolService.actualizarRol({ID_Restaurante, ID, nombre, descripcion});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
-            res.status(400).json({ error: 'Error al crearRol', message: error.message });
+            res.status(400).json({ error: 'Error al actualizarRol', message: error.message });
         }
     },
     eliminarRol: async function (req, res) {
-        const { ID_Restaurante } = req.user || {};
-        const { ID, nombre, descripcion } = req.body || {};
+        const { id } = req.params || {};
         try {
-            const response = await UsuarioService.obtenerEmpleados({ID_Restaurante, ID, nombre, descripcion});
+            const response = await RolService.eliminarRol({id});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearRol', error);
-            res.status(400).json({ error: 'Error al crearRol', message: error.message });
+            res.status(400).json({ error: 'Error al eliminarRol', message: error.message });
         }
     },
 }
+
+module.exports =  RolController 

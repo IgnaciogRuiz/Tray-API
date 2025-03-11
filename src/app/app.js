@@ -6,6 +6,7 @@ var app = express();
 // cargar archivos rutas
 const authRoutes = require('../routes/auth');
 const usuarioRoutes = require('../routes/usuarios');
+const rolRoutes = require('../routes/rol')
 const mesaRoutes = require('../routes/mesas');
 const categoriaRoutes = require('../routes/categorias');
 const productoRoutes = require('../routes/productos');
@@ -34,8 +35,9 @@ app.use((req, res, next) => {
 // rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/usuario',  usuarioRoutes);
+app.use('/api/rol',  rolRoutes);
 // app.use('/api/mesas', mesaRoutes);
-// app.use('/api/categorias', categoriaRoutes);
+app.use('/api/categoria', categoriaRoutes);
 // app.use('/api/productos', productoRoutes);
 // app.use('/api/menus', menuRoutes);
 // app.use('/api/pedidos', pedidoRoutes);
