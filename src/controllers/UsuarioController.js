@@ -5,8 +5,9 @@ import { response } from 'express';
 
 var UsuarioController = {
   test: function(req, res){
+    const { DNI, ID_Restaurante } = req.user;
     return res.status(200).send({
-      message: 'Test Controller Usuario'
+      message: 'Test Controller Usuario', DNI: DNI, ID_restaurante: ID_Restaurante
     });
   },
   obtenerEmpleados: async function (req, res) {

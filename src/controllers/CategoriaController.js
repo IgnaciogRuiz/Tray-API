@@ -19,8 +19,9 @@ var CategoriaController = {
     },
     crearCategoria: async function (req, res) {
         const { nombre } = req.body || {};
+        const { ID_Restaurante } = req.user;
         try {
-            const response = await CategoriaService.crearCategoria({ nombre });
+            const response = await CategoriaService.crearCategoria({ nombre, ID_Restaurante});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en crearCategoria', error);
@@ -38,8 +39,9 @@ var CategoriaController = {
         }
     },
     obtenerCategorias: async function (req, res) {
+        const { ID_Restaurante } = req.user;
         try {
-            const response = await CategoriaService.obtenerCategorias({});
+            const response = await CategoriaService.obtenerCategorias({ID_Restaurante});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en obtenerCategorias', error);
@@ -47,9 +49,10 @@ var CategoriaController = {
         }
     },
     actualizarCategoria: async function (req, res) {
-        const { ID, nombre } = req.body || {};
+        const { id, nombre } = req.body || {};
+        const { ID_Restaurante } = req.user;
         try {
-            const response = await CategoriaService.actualizarCategoria({ ID, nombre });
+            const response = await CategoriaService.actualizarCategoria({ id, nombre, ID_Restaurante});
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en actualizarCategoria', error);
@@ -58,8 +61,9 @@ var CategoriaController = {
     },
     eliminarCategoria: async function (req, res) {
         const { id } = req.params || {};
+        const { ID_Restaurante } = req.user;
         try {
-            const response = await CategoriaService.eliminarCategoria({ id });
+            const response = await CategoriaService.eliminarCategoria({ id, ID_Restaurante });
             res.status(200).json({ response }); 
         } catch (error) {
             //console.error('Error en eliminarCategoria', error);

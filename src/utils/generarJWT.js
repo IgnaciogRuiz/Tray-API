@@ -1,8 +1,7 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-const jwtSecretKey = process.env.JWT_SECRET_KEY;
 dotenv.config();
-
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 //funcion para generar el json web token
 const generarJWT = (DNI, ID_Restaurante) => {

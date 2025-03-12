@@ -14,7 +14,7 @@ router.get('/:id', AuthMiddleware, CategoriaController.obtenerCategoria)
 router.post('/create', AuthMiddleware, CategoriaController.crearCategoria)
 
 //PATCH
-router.patch('/update', AuthMiddleware, CategoriaController.actualizarCategoria)
+router.put('/update', AuthMiddleware, CategoriaController.actualizarCategoria)
 
 //DELETE
 router.delete('/delete/:id', AuthMiddleware, CategoriaController.eliminarCategoria)
