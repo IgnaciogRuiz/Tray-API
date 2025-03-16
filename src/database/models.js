@@ -14,7 +14,7 @@ const Usuario = sequelize.define('Usuario', {
 const Mesa = sequelize.define('Mesa', {
   id_mesa: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   numero_mesa: { type: DataTypes.INTEGER, allowNull: false, unique: true },
-  estado: { type: DataTypes.STRING(50), allowNull: false },
+  estado: { type: DataTypes.ENUM('ocupada', 'libre', 'reservada'), allowNull: false },
   activo: {type: DataTypes.BOOLEAN, allowNull: false}
 });
 

@@ -5,6 +5,7 @@ var app = express();
 import authRoutes from '../routes/auth.js';
 import usuarioRoutes from '../routes/usuarios.js';
 import categoriaRoutes from '../routes/categorias.js';
+import mesaRoutes from '../routes/mesas.js';
 
 
 
@@ -28,12 +29,10 @@ app.use((req, res, next) => {
 // rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/usuario',  usuarioRoutes);
-// app.use('/api/mesas', mesaRoutes);
 app.use('/api/categoria', categoriaRoutes);
-// app.use('/api/productos', productoRoutes);
-// app.use('/api/menus', menuRoutes);
-// app.use('/api/pedidos', pedidoRoutes);
-// app.use('/api/detalles-pedido', detallePedidoRoutes);
+app.use('/api/mesa', mesaRoutes);
+// app.use('/api/producto', productoRoutes);
+// app.use('/api/pedido', pedidoRoutes);
 
 // exportar
 export default app;

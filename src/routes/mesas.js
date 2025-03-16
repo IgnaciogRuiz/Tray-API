@@ -14,7 +14,7 @@ router.get('/:id', AuthMiddleware, MesaController.obtenerMesa)
 router.post('/create', AuthMiddleware, MesaController.crearMesa)
 
 //PATCH
-router.put('/update', AuthMiddleware, MesaController.actualizarMesa)
+router.patch('/update', AuthMiddleware, MesaController.actualizarMesa)
 
 //DELETE
 router.delete('/delete/:id', AuthMiddleware, MesaController.eliminarMesa)

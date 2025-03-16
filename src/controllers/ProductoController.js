@@ -8,26 +8,59 @@ Funciones:
 */
 
 import ProductoService from "../services/ProductoService.js";
-
+//cambiar la manera en que se pasan los parametros
 var ProductoController = {
-    test: async function(req,res) {
-
+    test: async (req, res) => {
+        res.send("API de Productos funcionando correctamente");
     },
-    crearProducto: async function(req,res) {
-
+    crearProducto: async (req, res) => {
+        try {
+            const { ID_Restaurante } = req.user;
+            const producto = await ProductoService.CrearProducto({ ID_Restaurante, ...req.body });
+            res.status(201).json(producto);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     },
-    obtenerProductos: async function(req,res) {
-
+    obtenerProductos: async (req, res) => {
+        try {
+            const { ID_Restaurante } = req.user;
+            const productos = await ProductoService.obtenerProductos({ ID_Restaurante });
+            res.status(200).json(productos);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     },
-    obtenerProducto: async function(req,res) {
-
+    obtenerProducto: async (req, res) => {
+        try {
+            const { ID_Restaurante } = req.user;
+            const { id } = req.params;
+            const producto = await ProductoService.obtenerProducto({ ID_Restaurante, id_producto: id });
+            res.status(200).json(producto);
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
     },
-    actualizarProducto: async function(req,res) {
-
+    actualizarProducto: async (req, res) => {
+        try {
+            const { ID_Restaurante } = req.user;
+            const { id } = req.params;
+            const producto = await ProductoService.actualizarProducto({ ID_Restaurante, id_producto: id, ...req.body });
+            res.status(200).json(producto);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     },
-    eliminarProducto: async function(req,res) {
-
+    eliminarProducto: async (req, res) => {
+        try {
+            const { ID_Restaurante } = req.user;
+            const { id } = req.params;
+            const resultado = await ProductoService.eliminarProducto({ ID_Restaurante, id_producto: id });
+            res.status(200).json(resultado);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     }
-}
+};
 
 export default ProductoController;
