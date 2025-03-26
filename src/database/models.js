@@ -1,5 +1,5 @@
-const sequelize = require('./database');
-const { DataTypes } = require('sequelize');
+import sequelize from './database.js';
+import { DataTypes } from 'sequelize';
 
 const Usuario = sequelize.define('Usuario', {
   DNI: { type: DataTypes.INTEGER, primaryKey: true },
@@ -14,7 +14,8 @@ const Usuario = sequelize.define('Usuario', {
 const Mesa = sequelize.define('Mesa', {
   id_mesa: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   numero_mesa: { type: DataTypes.INTEGER, allowNull: false, unique: true },
-  estado: { type: DataTypes.STRING(50), allowNull: false },
+  estado: { type: DataTypes.ENUM('ocupada', 'libre', 'reservada'), allowNull: false },
+  activo: {type: DataTypes.BOOLEAN, allowNull: false}
 });
 
 const Pedido = sequelize.define('Pedido', {
@@ -24,9 +25,19 @@ const Pedido = sequelize.define('Pedido', {
   cubiertos: {type: DataTypes.INTEGER, allowNull: false}
 });
 
+const CategoriaProducto = sequelize.define('CategoriaProducto', {
+  producto_id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true},
+  categoria_id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true}
+}, {
+  tableName: 'categoria_producto',
+  timestamps: false,  // Evita las columnas createdAt y updatedAt
+  freezeTableName: true // Evita que Sequelize pluralice el nombre de la tabla
+});
+
 const Categoria = sequelize.define('Categoria', {
   id_categoria: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  nombre: { type: DataTypes.STRING(100), allowNull: false }
+  nombre: { type: DataTypes.STRING(100), allowNull: false },
+  activo: {type: DataTypes.BOOLEAN, allowNull: false}
 });
 
 const Producto = sequelize.define('Producto', {
@@ -36,36 +47,11 @@ const Producto = sequelize.define('Producto', {
   activo: {type: DataTypes.BOOLEAN, allowNull: false}
 });
 
-const Menu = sequelize.define('Menu', {
-  id_menu: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  nombre: { type: DataTypes.STRING(100), allowNull: false },
-  precio: { type: DataTypes.DECIMAL(10,2), allowNull: false },
-  descripcion: { type: DataTypes.TEXT, allowNull: false },
-  activo: {type: DataTypes.BOOLEAN, allowNull: false}
-});
-
-const MenuProducto = sequelize.define('MenuProducto', {
-  cantidad: { type: DataTypes.INTEGER, allowNull: false }
-});
-
 const DetallePedido = sequelize.define('DetallePedido', {
   id_detalle: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   cantidad: { type: DataTypes.INTEGER, allowNull: false },
-  estado: { type: DataTypes.STRING(50), allowNull: false }
-});
-
-const Turno = sequelize.define('Turno', {
-  id_turno: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  fecha: { type: DataTypes.DATEONLY, allowNull: false },
-  hora_inicio: { type: DataTypes.TIME, allowNull: false },
-  hora_fin: { type: DataTypes.TIME, allowNull: false },
-  jornada: { type: DataTypes.STRING(20), allowNull: false }
-});
-
-const Rol = sequelize.define('Rol', {
-  ID: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  nombre: { type: DataTypes.STRING(50), allowNull: false },
-  descripcion: { type: DataTypes.TEXT }
+  estado: { type: DataTypes.STRING(50), allowNull: false },
+  nota: {type: DataTypes.TEXT, allowNull: true}
 });
 
 const Restaurante = sequelize.define('Restaurante', {
@@ -83,23 +69,21 @@ const Restaurante = sequelize.define('Restaurante', {
 const Plan = sequelize.define('Plan', {
   id_plan: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   nombre: { type: DataTypes.STRING(50), allowNull: false },
-  numero_empleados: { type: DataTypes.INTEGER, allowNull: false },
-  numero_mesas: { type: DataTypes.INTEGER, allowNull: false },
-  facturacion: { type: DataTypes.BOOLEAN, allowNull: false },
-  precio: {type: DataTypes.DECIMAL(10,2), allowNull: false}
+  precio: {type: DataTypes.DECIMAL(10,2), allowNull: false},
+  duracion: {type: DataTypes.INTEGER, allowNull: false }
 });
  
 const Direccion = sequelize.define('Direccion', {
   ID: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   calle: { type: DataTypes.STRING(100), allowNull: false },
   numero: { type: DataTypes.INTEGER, allowNull: false },
-  cp: { type: DataTypes.INTEGER, allowNull: false },
+  cp: { type: DataTypes.STRING(6), allowNull: false },
   localidad: { type: DataTypes.STRING(50), allowNull: false }
 });
 
 const UsuarioRestaurante = sequelize.define('UsuarioRestaurante', {
   ID: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  rol: { type: DataTypes.STRING(50), allowNull: false },
+  rol: { type: DataTypes.ENUM('empleado','admin'), allowNull: false },
   activo: {type: DataTypes.BOOLEAN, allowNull: false}
 });
 
@@ -115,20 +99,8 @@ const Factura = sequelize.define('Factura', {
 Restaurante.hasMany(UsuarioRestaurante, { foreignKey: 'restaurante_id' });
 UsuarioRestaurante.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
 
-Restaurante.hasMany(Turno, { foreignKey: 'restaurante_id' });
-Turno.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
-
-Restaurante.hasMany(Menu, { foreignKey: 'restaurante_id' });
-Menu.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
-
-Restaurante.hasMany(DetallePedido, { foreignKey: 'restaurante_id' });
-DetallePedido.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
-
-Restaurante.hasMany(Pedido, { foreignKey: 'restaurante_id' });
-Pedido.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
-
-Restaurante.hasMany(Producto, { foreignKey: 'restaurante_id' });
-Producto.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
+Restaurante.hasMany(Categoria, { foreignKey: 'restaurante_id' });
+Categoria.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
 
 Restaurante.hasMany(Mesa, { foreignKey: 'restaurante_id' });
 Mesa.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
@@ -138,9 +110,6 @@ Factura.belongsTo(Restaurante, { foreignKey: 'restaurante_id' });
 
 Usuario.hasMany(UsuarioRestaurante, { foreignKey: 'usuario_DNI' });
 UsuarioRestaurante.belongsTo(Usuario, { foreignKey: 'usuario_DNI' });
-
-Usuario.hasMany(Turno, { foreignKey: 'usuario_DNI' });
-Turno.belongsTo(Usuario, { foreignKey: 'usuario_DNI' });
 
 Usuario.hasMany(Pedido, { foreignKey: 'usuario_DNI' });
 Pedido.belongsTo(Usuario, { foreignKey: 'usuario_DNI' });
@@ -154,15 +123,14 @@ DetallePedido.belongsTo(Pedido, { foreignKey: 'pedido_id' });
 Pedido.hasMany(Factura, { foreignKey: 'pedido_id' });
 Factura.belongsTo(Pedido, { foreignKey: 'pedido_id' });
 
-
 Producto.hasMany(DetallePedido, { foreignKey: 'producto_id' });
 DetallePedido.belongsTo(Producto, { foreignKey: 'producto_id' });
 
-Categoria.hasMany(Producto, { foreignKey: 'categoria_id' });
-Producto.belongsTo(Categoria, { foreignKey: 'categoria_id' });
+Producto.hasMany(CategoriaProducto, { primaryKey: true, foreignKey: 'producto_id' });
+CategoriaProducto.belongsTo(Producto, { primaryKey: true, foreignKey: 'producto_id' });
 
-Menu.belongsToMany(Producto, { through: MenuProducto, foreignKey: 'menu_id' });
-Producto.belongsToMany(Menu, { through: MenuProducto, foreignKey: 'producto_id' });
+Categoria.hasMany(CategoriaProducto, { primaryKey: true, foreignKey: 'categoria_id' });
+CategoriaProducto.belongsTo(Categoria, { primaryKey: true, foreignKey: 'categoria_id' });
 
 Restaurante.belongsTo(Plan, { foreignKey: 'plan_id' });
 Plan.hasMany(Restaurante, { foreignKey: 'plan_id' });
@@ -170,21 +138,15 @@ Plan.hasMany(Restaurante, { foreignKey: 'plan_id' });
 Restaurante.belongsTo(Direccion, { foreignKey: 'direccion_id' });
 Direccion.hasOne(Restaurante, { foreignKey: 'direccion_id' });
 
-Turno.belongsTo(Rol, { foreignKey: 'rol_id' });
-Rol.hasMany(Turno, { foreignKey: 'rol_id' });
 
-module.exports = {
+export {
   sequelize,
   Usuario,
   Mesa,
   Pedido,
   Categoria,
   Producto,
-  Menu,
-  MenuProducto,
   DetallePedido,
-  Turno,
-  Rol,
   Restaurante,
   Plan,
   Direccion,

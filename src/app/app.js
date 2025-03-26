@@ -1,21 +1,16 @@
-'use strict'
-
-var express = require('express');
+import express from 'express';
 var app = express();
 
 // cargar archivos rutas
-const authRoutes = require('../routes/auth');
-const usuarioRoutes = require('../routes/usuarios');
-const mesaRoutes = require('../routes/mesas');
-const categoriaRoutes = require('../routes/categorias');
-const productoRoutes = require('../routes/productos');
-const menuRoutes = require('../routes/menus');
-const pedidoRoutes = require('../routes/pedidos');
-const detallePedidoRoutes = require('../routes/detallepedidos');
+import authRoutes from '../routes/auth.js';
+import usuarioRoutes from '../routes/usuarios.js';
+import categoriaRoutes from '../routes/categorias.js';
+import mesaRoutes from '../routes/mesas.js';
+
 
 
 // middlewares
-//var AuthMiddleware = require('../middlewares/authMiddleware')
+import authMiddleware from '../middlewares/authMiddleware.js';
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,12 +29,10 @@ app.use((req, res, next) => {
 // rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/usuario',  usuarioRoutes);
-// app.use('/api/mesas', mesaRoutes);
-// app.use('/api/categorias', categoriaRoutes);
-// app.use('/api/productos', productoRoutes);
-// app.use('/api/menus', menuRoutes);
-// app.use('/api/pedidos', pedidoRoutes);
-// app.use('/api/detalles-pedido', detallePedidoRoutes);
+app.use('/api/categoria', categoriaRoutes);
+app.use('/api/mesa', mesaRoutes);
+// app.use('/api/producto', productoRoutes);
+// app.use('/api/pedido', pedidoRoutes);
 
 // exportar
-module.exports = app;
+export default app;

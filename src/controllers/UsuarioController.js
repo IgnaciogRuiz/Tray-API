@@ -1,16 +1,13 @@
-//importar services
-const UsuarioService = require('../services/UsuarioService');
-
-//importar archivos
-const { Usuario } = require('../database/schema');
-const { response } = require('express');
+import UsuarioService from '../services/UsuarioService.js';
+import { response } from 'express';
 
 
 
 var UsuarioController = {
   test: function(req, res){
+    const { DNI, ID_Restaurante } = req.user;
     return res.status(200).send({
-      message: 'Test Controller Usuario'
+      message: 'Test Controller Usuario', DNI: DNI, ID_restaurante: ID_Restaurante
     });
   },
   obtenerEmpleados: async function (req, res) {
@@ -72,4 +69,4 @@ var UsuarioController = {
 
 
  
-module.exports = UsuarioController;
+export default UsuarioController;

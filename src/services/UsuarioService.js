@@ -1,6 +1,6 @@
-const { Usuario, UsuarioRestaurante } = require('../database/schema');
-const { Op } = require("sequelize");
-const bcrypt = require('bcrypt');
+import { Usuario, UsuarioRestaurante } from '../database/models.js';
+import { Op } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 const obtenerEmpleados = async function ({DNI, ID_Restaurante}) {
 
@@ -150,6 +150,5 @@ const eliminarUsuario = async function ({DNI}) {
     throw error
   }
 }
-
-
-module.exports = { obtenerEmpleados, obtenerUsuario, cambiarPassword, actualizarUsuario, eliminarUsuario }
+                                                                                                                    
+export default { obtenerEmpleados, obtenerUsuario, cambiarPassword, actualizarUsuario, eliminarUsuario };

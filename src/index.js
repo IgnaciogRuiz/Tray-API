@@ -1,12 +1,12 @@
-'use strict'
+// src/index.js
+import app from './app/app.js';
+import conexion from './database/database.js';
 
-var app = require('./app/app');
-var port = process.env.PORT || 3700;
-var conexion = require('./database/database');
+const port = process.env.PORT || 3700;
 
 if (conexion) {
-    // Creacion del servidor
+    // Creación del servidor
     app.listen(port, () => {
-        console.log("Servidor corriendo correctamente en la url: http://localhost:"+port);
+        console.log(`Servidor corriendo correctamente en la URL: http://localhost:${port}`);
     });
 }

@@ -6,8 +6,9 @@ Funciones:
     resetPassword: solicitar la recuperacion de contraseña.
  */
 
-const { response } = require('express');
-const AuthService = require('../services/AuthService');
+
+import { response } from 'express';
+import AuthService from '../services/AuthService.js';
 
 var AuthController = {
     test: function(req, res){
@@ -110,4 +111,4 @@ var AuthController = {
     },
 }
 
-module.exports = AuthController;
+export default AuthController;

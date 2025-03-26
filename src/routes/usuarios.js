@@ -1,10 +1,8 @@
-//Rutas de Usuario
-var express = require('express');
-var UsuarioController = require('../controllers/UsuarioController');
-var router = express.Router();
-var AuthMiddleware = require('../middlewares/authMiddleware');
-const authMiddleware = require('../middlewares/authMiddleware');
+import express from 'express';
+import UsuarioController from '../controllers/UsuarioController.js';
+import AuthMiddleware from '../middlewares/authMiddleware.js';
 
+var router = express.Router();
 
 
 //GET
@@ -17,8 +15,8 @@ router.patch('/cambiar-password', AuthMiddleware, UsuarioController.actualizarPa
 router.patch('/actualizar', AuthMiddleware, UsuarioController.actualizarUsuario);
 
 //DELETE
-router.delete('/eliminar', authMiddleware, UsuarioController.eliminarUsuariodeRestaurante);
+router.delete('/eliminar', AuthMiddleware, UsuarioController.eliminarUsuariodeRestaurante);
 
 
 
-module.exports = router;    
+export default  router;    

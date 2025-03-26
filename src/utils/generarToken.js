@@ -1,6 +1,6 @@
-const { customAlphabet } = require('nanoid');
-const { Restaurante } = require('../database/schema');  
-const moment = require('moment');
+import { customAlphabet } from 'nanoid';
+import { Restaurante } from '../database/models.js';  
+import moment from 'moment';
 const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; 
 const alfabetoNumerico = '0123456789';
 
@@ -18,8 +18,6 @@ async function generarTokenUnico() {
 
   return tokenRestaurante; // Devolver token único
 }
-
-
 
 // Generador de token numérico de 6 caracteres
 const generarTokenRecuperacion = () => {
@@ -44,4 +42,4 @@ const verificarTokenRecuperacion = (token, expiracion) => {
 };
 
 
-module.exports = {generarTokenRecuperacion, generarTokenUnico, verificarTokenRecuperacion };
+export {generarTokenRecuperacion, generarTokenUnico, verificarTokenRecuperacion };

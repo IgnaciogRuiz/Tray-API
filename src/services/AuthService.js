@@ -1,12 +1,8 @@
-//importar dependencias
-const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
-
-//importar archivos
-const { sequelize, Usuario, Restaurante, Plan, UsuarioRestaurante, Direccion } = require('../database/schema');
-const {generarTokenUnico, generarTokenRecuperacion, verificarTokenRecuperacion } = require('../utils/generarToken'); 
-const generarJWT = require('../utils/generarJWT');
-const { where } = require('sequelize');
+import { sequelize, Usuario, Restaurante, Plan, UsuarioRestaurante, Direccion } from '../database/models.js'; //modelos
+import {generarTokenUnico, generarTokenRecuperacion, verificarTokenRecuperacion } from '../utils/generarToken.js'; //funciones token
+import generarJWT from '../utils/generarJWT.js'; //JWT
+import nodemailer from 'nodemailer';
+import bcrypt from 'bcrypt';
 
 
 
@@ -436,4 +432,4 @@ const cambiarPassword = async ({email, tokenRecuperacion, nuevaPassword, repPass
 // }
 
 
-module.exports = { crearAdmin, crearEmpleado, login, select, solicitarRecuperacion, verificarToken, cambiarPassword, vincular };
+export default { crearAdmin, crearEmpleado, login, select, solicitarRecuperacion, verificarToken, cambiarPassword, vincular };
